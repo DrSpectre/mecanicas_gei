@@ -13,6 +13,9 @@ public class ArmaBlanca: MonoBehaviour{
         SistemaSalud salud_de_a_aquin_acuchillo = acuchillar.GetComponent<SistemaSalud>();
 
         if (salud_de_a_aquin_acuchillo != null) {
+            if (acuchillar.gameObject.tag == "jugador") {
+                return;
+            }
             salud_de_a_aquin_acuchillo.restar_salud(daño);
         }
     }

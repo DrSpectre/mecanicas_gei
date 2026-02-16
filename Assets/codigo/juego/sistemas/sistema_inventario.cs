@@ -51,17 +51,20 @@ public class SistemaInventario: MonoBehaviour{
     void colocar_en_mi_mano() {
         if (puedo_tomar_esto != null) {
             tengo_algo_en_mi_mano = true;
-            
-            puedo_tomar_esto.transform.parent = mi_manita.transform;
-            puedo_tomar_esto.transform.position = mi_manita.transform.position;
+
+            var objeto = puedo_tomar_esto.GetComponent<InteractuableComportamiento>();
+
+            objeto.colocar_en(mi_manita.transform);
         }
     }
 
     void soltar_lo_que_tengo() { 
         tengo_algo_en_mi_mano = false;
-            
-        puedo_tomar_esto.transform.parent = null;
-        puedo_tomar_esto.transform.position = puedo_tomar_esto.transform.position;
+
+        var objeto = puedo_tomar_esto.GetComponent<InteractuableComportamiento>();
+
+        // objeto.soltar();
+        objeto.arrojar(250.0f);
     }
 
 
@@ -70,12 +73,8 @@ public class SistemaInventario: MonoBehaviour{
 
         var que_tipo_de_interaccion_tiene = chocamos_con_algo.GetComponent<InteractuableComportamiento>();
 
-        if (que_tipo_de_interaccion_tiene != null) {
-            switch (que_tipo_de_interaccion_tiene.tipo) {
-                case TipoInteraccion.obtenible:
-                    puedo_tomar_esto = chocamos_con_algo.gameObject;
-                    break;
-            }
+        if (que_tipo_de_interaccion_tiene != null && !tengo_algo_en_mi_mano) {
+            puedo_tomar_esto = chocamos_con_algo.gameObject;
         }
     }
 
