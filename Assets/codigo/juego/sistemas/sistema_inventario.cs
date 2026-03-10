@@ -24,10 +24,13 @@ public class SistemaInventario: MonoBehaviour{
 
         mi_manita = GameObject.Find("manita");
 
+        Debug.Log($"Estamos buscando otra cosa: {GameObject.Find("Enemigo")}");
+
         mi_manita.GetComponent<MeshRenderer>().enabled = false; 
     }
 
     void realizar_interaccion(InputAction.CallbackContext _) {
+        Debug.Log("Relaizando interaccion");
         if (puedo_tomar_esto == null) {
             return;
         }
@@ -36,7 +39,7 @@ public class SistemaInventario: MonoBehaviour{
 
         if (que_tipo_de_interaccion_tiene != null) {
             switch (que_tipo_de_interaccion_tiene.tipo) {
-                case TipoInteraccion.obtenible:
+                case TipoInteraccion.recogible:
                     if (tengo_algo_en_mi_mano) {
                         soltar_lo_que_tengo();
                     }
@@ -81,6 +84,13 @@ public class SistemaInventario: MonoBehaviour{
 
     void OnTriggerExit(Collider abandonamos_algo){
         Debug.Log($"Estamos abandonando a {abandonamos_algo.gameObject.name}");
+        var que_tipo_de_interaccion_tiene = abandonamos_algo.GetComponent<InteractuableComportamiento>();
+
+        if (que_tipo_de_interaccion_tiene != null && !tengo_algo_en_mi_mano) {
+            if (abandonamos_algo.gameObject == puedo_tomar_esto) {
+                puedo_tomar_esto = null;
+            }
+        }
     }
 
 

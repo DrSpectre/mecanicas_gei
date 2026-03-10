@@ -15,7 +15,7 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
-        tipo = TipoInteraccion.obtenible;
+        tipo = TipoInteraccion.recogible;
 
         fisicas = GetComponent<Rigidbody>();
         nombre = nombre_actual;
@@ -37,7 +37,7 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
         transform.rotation = ubicacion.rotation;
 
         fisicas.useGravity = false;
-        fisicas.detectCollisions = false;
+        // fisicas.detectCollisions = false;
         
         estoy_siendo_sostenido = true;
     }
@@ -50,7 +50,9 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
         estoy_siendo_sostenido = false;
         
         fisicas.useGravity = true;
-        fisicas.detectCollisions = true;
+        // fisicas.detectCollisions = true;
+        // fisicas.isKinematic = false;
+
     }
 
     public void arrojar(float fuerza) {

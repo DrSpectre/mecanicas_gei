@@ -6,6 +6,8 @@ TagManager:
   tags:
   - jugador
   - enemigo
+  - suelo
+  - punto_patrullaje
   layers:
   - Default
   - TransparentFX

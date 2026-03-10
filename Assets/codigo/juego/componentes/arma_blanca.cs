@@ -9,22 +9,21 @@ public class ArmaBlanca: MonoBehaviour{
         a_quienes_me_rajo = new List<GameObject>();
     }
 
-    void OnTriggerEnter(Collider acuchillar){
-        SistemaSalud salud_de_a_aquin_acuchillo = acuchillar.GetComponent<SistemaSalud>();
-
+    void hacer_daño(GameObject a_quien) {
+        SistemaSalud salud_de_a_aquin_acuchillo = a_quien.GetComponent<SistemaSalud>();
+        
         if (salud_de_a_aquin_acuchillo != null) {
-            if (acuchillar.gameObject.tag == "jugador") {
+            if (a_quien.gameObject.CompareTag("jugador")) {
                 return;
             }
             salud_de_a_aquin_acuchillo.restar_salud(daño);
         }
     }
+    void OnTriggerEnter(Collider acuchillar){
+        hacer_daño(acuchillar.gameObject);
+    }
 
     void OnTriggerExit(Collider acuchillar){
-        SistemaSalud salud_de_a_aquin_acuchillo = acuchillar.GetComponent<SistemaSalud>();
-
-        if (salud_de_a_aquin_acuchillo != null) {
-            salud_de_a_aquin_acuchillo.restar_salud(daño);
-        }
+        hacer_daño(acuchillar.gameObject);
     }
 }
