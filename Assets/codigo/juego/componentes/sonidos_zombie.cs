@@ -1,3 +1,4 @@
+using UnityEditor.Rendering.Universal.ShaderGUI;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -27,5 +28,13 @@ public class SonidosZombie: MonoBehaviour{
     void reproducir(AudioClip sonido) {
         fuente_sonido.loop = true;
         fuente_sonido.PlayOneShot(sonido);
+    }
+
+    void OnGUI(){
+        /*bool estado = false;
+        estado = GUI.Toggle(new Rect(10, 10, 100, 30), estado, "Play Music");
+        */
+        if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))
+            print("You clicked the button!");
     }
 }
