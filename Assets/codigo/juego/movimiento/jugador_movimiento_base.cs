@@ -38,7 +38,7 @@ public class JugadorMovimientoBase: MonoBehaviour{
 
         _velocidad_por_fotograma = velocidad_movimiento / 60;
 
-        indicacion_direccion = Camera.main.gameObject.transform;
+        indicacion_direccion = Camera.main.gameObject.transform;  // Jalamos la infomraicon de direccion y rotacion de la camara
 
         saltar = entradas_del_jugador.actions.FindAction("saltar");
         saltar.performed += salta_jugador_salta;

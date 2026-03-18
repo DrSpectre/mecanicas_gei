@@ -22,7 +22,7 @@ public class SistemaInventario: MonoBehaviour{
 
         interactuar.performed += realizar_interaccion;
 
-        mi_manita = GameObject.Find("manita");
+        mi_manita = GetComponentInChildren<TipoDeInventario>().gameObject;
 
         Debug.Log($"Estamos buscando otra cosa: {GameObject.Find("Enemigo")}");
 

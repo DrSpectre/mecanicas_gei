@@ -9,7 +9,7 @@ public class TextoIndicadorSalud: MonitorSalud{
         cajita_texto = GetComponentInChildren<TMP_Text>();
     }
     
-    public override void actualizacion_salud(int cantidad_salud_nueva) {
+    protected override void actualizacion_salud(int cantidad_salud_nueva) {
         cajita_texto.text = $"SALUD: {cantidad_salud_nueva}";
     }
 

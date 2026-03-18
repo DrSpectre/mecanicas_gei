@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+// [RequireComponent(typeof(Rigidbody))]
 public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
     public TipoInteraccion tipo { get; set; }
     // public string nombre { get => nombre_actual; set; }
@@ -17,19 +17,28 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
     void Start(){
         tipo = TipoInteraccion.recogible;
 
-        fisicas = GetComponent<Rigidbody>();
+        fisicas = GetComponentInChildren<Rigidbody>();
         nombre = nombre_actual;
     }
 
-    void Update(){
-        if (estoy_siendo_sostenido) {
+    void FixedUpdate(){
+        if (estoy_siendo_sostenido){
             fisicas.angularVelocity = Vector3.zero;
             fisicas.linearVelocity = Vector3.zero;
 
             transform.position = transform.parent.position;
             transform.rotation = transform.parent.rotation;
         }
+
+        else {
+            transform.position = fisicas.transform.position;
+            transform.rotation = fisicas.transform.rotation;
+
+            fisicas.transform.position = transform.position;
+            fisicas.transform.rotation = transform.rotation;
+        }
     }
+    
     public void colocar_en(Transform ubicacion){
         transform.SetParent(ubicacion);
 
@@ -37,9 +46,10 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
         transform.rotation = ubicacion.rotation;
 
         fisicas.useGravity = false;
-        // fisicas.detectCollisions = false;
-        
+        fisicas.detectCollisions = false;
+
         estoy_siendo_sostenido = true;
+        fisicas.isKinematic = true;
     }
 
     public void soltar() { 
@@ -50,8 +60,8 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
         estoy_siendo_sostenido = false;
         
         fisicas.useGravity = true;
-        // fisicas.detectCollisions = true;
-        // fisicas.isKinematic = false;
+        fisicas.detectCollisions = true;
+        fisicas.isKinematic = false;
 
     }
 

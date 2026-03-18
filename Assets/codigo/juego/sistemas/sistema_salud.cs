@@ -20,8 +20,6 @@ public class SistemaSalud: MonoBehaviour{
         }
     }
     private int _salud_restante = 0;
-    private MonitorMuerte al_morir;
-    
     public delegate void cambio_salud(int cantidad_actual_salud);
 
     public event cambio_salud quienes_quieren_saber_de_la_salud;
@@ -32,11 +30,6 @@ public class SistemaSalud: MonoBehaviour{
 
     public void restar_salud(int cantidad){
         salud_restante = salud_restante - cantidad;
-
-        if (salud_restante < 0){
-            // al_morir.procesar_muerte();
-            Debug.Log("Legamos al final de la vida del jugador");
-        }
     }
 }
 
