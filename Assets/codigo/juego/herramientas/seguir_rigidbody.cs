@@ -22,8 +22,10 @@ public class SeguirRigidbody: MonoBehaviour{
                 transform.rotation = rigid_body_hijo.transform.rotation;
                 rigid_body_hijo.transform.rotation = transform.rotation;
                 break;
-                
+
             case EstadosSeguirRigidbody.desactivado:
+                rigid_body_hijo.angularVelocity = Vector3.zero;
+                rigid_body_hijo.linearVelocity = Vector3.zero;
                 break;
         }
     }
@@ -33,6 +35,8 @@ public class SeguirRigidbody: MonoBehaviour{
         rigid_body_hijo.isKinematic = true;
         rigid_body_hijo.detectCollisions = false;
 
+        rigid_body_hijo.position = transform.position;
+        
         estado = EstadosSeguirRigidbody.desactivado;
     }
 
@@ -42,5 +46,9 @@ public class SeguirRigidbody: MonoBehaviour{
         rigid_body_hijo.detectCollisions = true;
 
         estado = EstadosSeguirRigidbody.siguiendo;
+    }
+
+    public void agregar_fuerza(float fuerza) { 
+         rigid_body_hijo.AddForce(transform.parent.forward * fuerza);
     }
 }

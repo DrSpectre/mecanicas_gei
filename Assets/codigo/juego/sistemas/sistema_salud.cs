@@ -1,8 +1,18 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum EstadosSistemaSalud { 
+    recibi_daño,
+    listo_para_otra_patada
+}
+
 [RequireComponent(typeof(MonitorMuerte))]
 public class SistemaSalud: MonoBehaviour{
+    public float tiempo_espera = 3f;
+
+    private EstadosSistemaSalud estado = EstadosSistemaSalud.listo_para_otra_patada;
+
+    private float _tiempo_de_daño = 0f;
     public int salud = 300;
     public UnityEvent evento;
     private int salud_restante { 
@@ -28,8 +38,23 @@ public class SistemaSalud: MonoBehaviour{
         salud_restante = salud;
     }
 
+    void FixedUpdate(){
+        if (estado == EstadosSistemaSalud.recibi_daño) {
+            _tiempo_de_daño -= Time.deltaTime;
+
+            if (_tiempo_de_daño < 0f) {
+                estado = EstadosSistemaSalud.listo_para_otra_patada;
+            }
+        }
+    }
+
     public void restar_salud(int cantidad){
-        salud_restante = salud_restante - cantidad;
+        if (estado == EstadosSistemaSalud.listo_para_otra_patada){
+            salud_restante = salud_restante - cantidad;
+
+            estado = EstadosSistemaSalud.recibi_daño;
+            _tiempo_de_daño = tiempo_espera;
+        }
     }
 }
 

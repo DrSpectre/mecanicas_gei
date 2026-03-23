@@ -22,13 +22,13 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
         fisicas = GetComponent<SeguirRigidbody>();
     }
     public void colocar_en(Transform ubicacion){
-        fisicas.desactviar();
+        fisicas?.desactviar();
         
         transform.SetParent(ubicacion);
     }
 
     public void soltar() {
-        fisicas.activar();
+        fisicas?.activar();
         
         transform.SetParent(null);
 
@@ -39,7 +39,7 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
     }
 
     public void arrojar(float fuerza) {
-        // fisicas.AddForce(transform.parent.forward * fuerza);
+        fisicas.agregar_fuerza(fuerza);
         
         soltar();
     }

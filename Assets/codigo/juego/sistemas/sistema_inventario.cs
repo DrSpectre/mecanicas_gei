@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class SistemaInventario: MonoBehaviour{
     private PlayerInput entradas_del_jugador;
     private InputAction interactuar;
+    private InputAction atacar;
     private bool tengo_algo_en_mi_mano = false;
 
     private GameObject mi_manita;
@@ -19,12 +20,13 @@ public class SistemaInventario: MonoBehaviour{
         
         entradas_del_jugador = GetComponent<PlayerInput>();
         interactuar = entradas_del_jugador.actions.FindAction("interactuar");
+        atacar = entradas_del_jugador.actions.FindAction("atacar");
 
         interactuar.performed += realizar_interaccion;
+        atacar.performed += atacar_con_arma;
 
         mi_manita = GetComponentInChildren<TipoDeInventario>().gameObject;
-
-        Debug.Log($"Estamos buscando otra cosa: {GameObject.Find("Enemigo")}");
+        
 
         mi_manita.GetComponent<MeshRenderer>().enabled = false; 
     }
@@ -70,6 +72,15 @@ public class SistemaInventario: MonoBehaviour{
         objeto.arrojar(250.0f);
     }
 
+    void atacar_con_arma(InputAction.CallbackContext _) {
+        Debug.Log("[SistemaInventario] mandnado a ejecutar un ataque");
+        
+        if (tengo_algo_en_mi_mano) {
+            var arma = puedo_tomar_esto.GetComponent<ArmaComponente>();
+
+            arma.dañar();
+        }
+    }
 
     void OnTriggerEnter(Collider chocamos_con_algo){
         Debug.Log($"Estamos llegando con {chocamos_con_algo.gameObject.name}");
