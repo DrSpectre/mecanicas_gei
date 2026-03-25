@@ -104,6 +104,9 @@ public class SistemaInventario: MonoBehaviour{
 
         if (que_tipo_de_interaccion_tiene != null && !tengo_algo_en_mi_mano) {
             puedo_tomar_esto = chocamos_con_algo.gameObject;
+
+            var manejador_de_objeto_agarrable = chocamos_con_algo.GetComponent<AgarrableComponente>();
+            manejador_de_objeto_agarrable.marcar_como_observado();
         }
     }
 
@@ -116,6 +119,9 @@ public class SistemaInventario: MonoBehaviour{
             if (abandonamos_algo.gameObject == puedo_tomar_esto) {
                 puedo_tomar_esto = null;
             }
+            
+            var manejador_de_objeto_agarrable = abandonamos_algo.GetComponent<AgarrableComponente>();
+            manejador_de_objeto_agarrable.desamrcar_como_obervado();
         }
     }
 

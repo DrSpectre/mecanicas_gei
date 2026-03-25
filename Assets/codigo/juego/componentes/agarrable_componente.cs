@@ -13,6 +13,10 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
 
     public String nombre_actual;
 
+
+    public delegate void siendo_observado(bool si_lo_estoy);
+    public event siendo_observado saber_si_soy_observado;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         tipo = TipoInteraccion.recogible;
@@ -20,6 +24,14 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
         nombre = nombre_actual;
 
         fisicas = GetComponent<SeguirRigidbody>();
+    }
+
+    public void marcar_como_observado(){
+        saber_si_soy_observado?.Invoke(true);
+    }
+
+    public void desamrcar_como_obervado() { 
+         saber_si_soy_observado?.Invoke(false);
     }
     public void colocar_en(Transform ubicacion){
         fisicas?.desactviar();
