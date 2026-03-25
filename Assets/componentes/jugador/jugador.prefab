@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &720643243415377285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2674921914928084098}
+  - component: {fileID: 7037967924256302592}
+  m_Layer: 0
+  m_Name: cabeza
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2674921914928084098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720643243415377285}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.010000003, y: 0.010000007, z: 0.0100000035}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6103206537149455934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7037967924256302592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720643243415377285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd04e1359f354b07b28c19e387fa827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UbicacionInventario
+  lugar: 0
 --- !u!1 &3210458893756942790
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +56,7 @@ GameObject:
   - component: {fileID: 2191657294013634506}
   - component: {fileID: 3307518395962026102}
   - component: {fileID: 5467902028455837853}
-  - component: {fileID: 884073227603210087}
+  - component: {fileID: 4972913833194483005}
   m_Layer: 0
   m_Name: manita
   m_TagString: Untagged
@@ -27,12 +72,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3210458893756942790}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.066704854, y: 0.7197433, z: -0.12061317, w: 0.68042094}
-  m_LocalPosition: {x: -0.844, y: 0.5934931, z: 0.108}
-  m_LocalScale: {x: 0.28724998, y: 0.28724992, z: 0.28725}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.00034, y: 0.00083, z: 0.00007}
+  m_LocalScale: {x: 0.0028725006, y: 0.0028725015, z: 0.0028725006}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 5293349740043779309}
+  m_Father: {fileID: 386238941129620170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3307518395962026102
 MeshFilter:
@@ -91,7 +136,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &884073227603210087
+--- !u!114 &4972913833194483005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,10 +145,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3210458893756942790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c82ee50549464082bd539685bf3e6ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fd04e1359f354b07b28c19e387fa827, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SombreroInventario
-  tipo: 3
+  m_EditorClassIdentifier: Assembly-CSharp::UbicacionInventario
+  lugar: 1
 --- !u!1 &3368930693857745622
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +279,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2191657294013634506}
   - {fileID: 5754900464964056981}
   - {fileID: 821736778154177264}
   - {fileID: 6113903011651081026}
@@ -449,6 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a192b6fcbaf6544b3a0682bee3212a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SistemaSalud
+  tiempo_espera: 3
   salud: 300
   evento:
     m_PersistentCalls:
@@ -613,11 +658,48 @@ PrefabInstance:
     - {fileID: 5866666021909216657, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8412169013017175165, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -3022344858331378077, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2191657294013634506}
+    - targetCorrespondingSourceObject: {fileID: -8655714960678540649, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2674921914928084098}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -8493543056209042082, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3534455022487744502}
   m_SourcePrefab: {fileID: 100100000, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
+--- !u!4 &386238941129620170 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3022344858331378077, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
+  m_PrefabInstance: {fileID: 6003943819926189225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6103206537149455934 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8655714960678540649, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
+  m_PrefabInstance: {fileID: 6003943819926189225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6113903011651081026 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
   m_PrefabInstance: {fileID: 6003943819926189225}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6445377360168915447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8493543056209042082, guid: 52833f69b1b884a28a5437131ed2718f, type: 3}
+  m_PrefabInstance: {fileID: 6003943819926189225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3534455022487744502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6445377360168915447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd04e1359f354b07b28c19e387fa827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UbicacionInventario
+  lugar: 1

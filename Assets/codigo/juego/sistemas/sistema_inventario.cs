@@ -11,7 +11,10 @@ public class SistemaInventario: MonoBehaviour{
     private InputAction atacar;
     private bool tengo_algo_en_mi_mano = false;
 
-    private GameObject mi_manita;
+
+    private GameObject mano_derecha; 
+    private GameObject cabeza;
+    private GameObject mano_izquierda;
     private GameObject puedo_tomar_esto;
 
     private List<GameObject> cosas_que_me_estoy_robando;
@@ -25,10 +28,21 @@ public class SistemaInventario: MonoBehaviour{
         interactuar.performed += realizar_interaccion;
         atacar.performed += atacar_con_arma;
 
-        mi_manita = GetComponentInChildren<TipoDeInventario>().gameObject;
-        
+        var ubicaciones_inventario = GetComponentsInChildren<UbicacionInventario>();
 
-        mi_manita.GetComponent<MeshRenderer>().enabled = false; 
+        foreach (var ubicacion in ubicaciones_inventario) {
+            if (ubicacion.lugar == NombreUbicacion.cabeza) {
+                cabeza = ubicacion.gameObject;
+            }
+
+            else if (ubicacion.lugar == NombreUbicacion.mano_derecha) {
+                mano_derecha = ubicacion.gameObject;
+            }
+
+            else {
+                mano_izquierda = ubicacion.gameObject;
+            }
+        } 
     }
 
     void realizar_interaccion(InputAction.CallbackContext _) {
@@ -42,7 +56,7 @@ public class SistemaInventario: MonoBehaviour{
         if (que_tipo_de_interaccion_tiene != null) {
             switch (que_tipo_de_interaccion_tiene.tipo) {
                 case TipoInteraccion.recogible:
-                    if (tengo_algo_en_mi_mano) {
+                    if (mano_derecha.GetComponent<UbicacionInventario>().ocupada) {
                         soltar_lo_que_tengo();
                     }
                     else{
@@ -55,11 +69,12 @@ public class SistemaInventario: MonoBehaviour{
     
     void colocar_en_mi_mano() {
         if (puedo_tomar_esto != null) {
-            tengo_algo_en_mi_mano = true;
-
             var objeto = puedo_tomar_esto.GetComponent<InteractuableComportamiento>();
 
-            objeto.colocar_en(mi_manita.transform);
+            if (!mano_derecha.GetComponent<UbicacionInventario>().ocupada) {
+                objeto.colocar_en(mano_derecha.transform);
+                mano_derecha.GetComponent<UbicacionInventario>().ocupada = true;
+            }
         }
     }
 
