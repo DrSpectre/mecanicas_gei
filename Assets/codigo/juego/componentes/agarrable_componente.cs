@@ -37,6 +37,12 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
         fisicas?.desactviar();
         
         transform.SetParent(ubicacion);
+
+        if (fisicas){
+            fisicas.gameObject.transform.position = ubicacion.position;
+        }
+
+        transform.position = ubicacion.position;
     }
 
     public void soltar() {
@@ -54,5 +60,11 @@ public class AgarrableComponente: MonoBehaviour, InteractuableComportamiento{
         fisicas.agregar_fuerza(fuerza);
         
         soltar();
+    }
+
+    public void accion(){
+        var objeto = gameObject.GetComponent<ArmaComponente>();
+
+        objeto?.dañar();
     }
 }

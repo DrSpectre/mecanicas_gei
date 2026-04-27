@@ -8,39 +8,52 @@ using UnityEngine.InputSystem;
 public class SistemaInventario: MonoBehaviour{
     private PlayerInput entradas_del_jugador;
     private InputAction interactuar;
-    private InputAction atacar;
-    private bool tengo_algo_en_mi_mano = false;
+    private InputAction atacar_derecha;
+    private InputAction atacar_izquierda;
+
+    private InputAction accion_derecha;
+    private InputAction accion_izquierda;
 
 
-    private GameObject mano_derecha; 
-    private GameObject cabeza;
-    private GameObject mano_izquierda;
-    private GameObject puedo_tomar_esto;
+    private UbicacionInventario mano_derecha; 
+    private UbicacionInventario cabeza;
+    private UbicacionInventario mano_izquierda;
+    private InteractuableComportamiento puedo_tomar_esto;
+    private GameObject objeto_activo_para_recoger;
 
     private List<GameObject> cosas_que_me_estoy_robando;
     void Start(){
         cosas_que_me_estoy_robando = new List<GameObject>();
         
         entradas_del_jugador = GetComponent<PlayerInput>();
+
         interactuar = entradas_del_jugador.actions.FindAction("interactuar");
-        atacar = entradas_del_jugador.actions.FindAction("atacar");
+
+        atacar_derecha = entradas_del_jugador.actions.FindAction("atacar_derecha");
+        atacar_izquierda = entradas_del_jugador.actions.FindAction("atacar_izquierda");
+
+        accion_derecha = entradas_del_jugador.actions.FindAction("accion_derecha");
+        accion_izquierda = entradas_del_jugador.actions.FindAction("accion_izquierda");
 
         interactuar.performed += realizar_interaccion;
-        atacar.performed += atacar_con_arma;
+        atacar_derecha.performed += accion_atacar_derecha;
+        atacar_izquierda.performed += accion_atacar_izquierda;
+        accion_izquierda.performed += accion_interaccion_izquierda;
+        accion_derecha.performed += accion_interaccion_derecha;
 
         var ubicaciones_inventario = GetComponentsInChildren<UbicacionInventario>();
 
         foreach (var ubicacion in ubicaciones_inventario) {
             if (ubicacion.lugar == NombreUbicacion.cabeza) {
-                cabeza = ubicacion.gameObject;
+                cabeza = ubicacion;
             }
 
             else if (ubicacion.lugar == NombreUbicacion.mano_derecha) {
-                mano_derecha = ubicacion.gameObject;
+                mano_derecha = ubicacion;
             }
 
             else {
-                mano_izquierda = ubicacion.gameObject;
+                mano_izquierda = ubicacion;
             }
         } 
     }
@@ -50,81 +63,72 @@ public class SistemaInventario: MonoBehaviour{
         if (puedo_tomar_esto == null) {
             return;
         }
-        
-        var que_tipo_de_interaccion_tiene = puedo_tomar_esto.GetComponent<InteractuableComportamiento>();
 
-        if (que_tipo_de_interaccion_tiene != null) {
-            switch (que_tipo_de_interaccion_tiene.tipo) {
+        if (puedo_tomar_esto != null) {
+            switch (puedo_tomar_esto.tipo) {
                 case TipoInteraccion.recogible:
                     if (mano_derecha.GetComponent<UbicacionInventario>().ocupada) {
-                        soltar_lo_que_tengo();
+                        // soltar_lo_que_tengo();
                     }
                     else{
-                        colocar_en_mi_mano();
+                        //colocar_en_mi_mano();
                     }
                     break;
             }
         }
     }
-    
-    void colocar_en_mi_mano() {
-        if (puedo_tomar_esto != null) {
-            var objeto = puedo_tomar_esto.GetComponent<InteractuableComportamiento>();
 
-            if (!mano_derecha.GetComponent<UbicacionInventario>().ocupada) {
-                objeto.colocar_en(mano_derecha.transform);
-                mano_derecha.GetComponent<UbicacionInventario>().ocupada = true;
-            }
+    void accion_interaccion_derecha(InputAction.CallbackContext _){
+        if(puedo_tomar_esto != null && puedo_tomar_esto.tipo == TipoInteraccion.recogible){
+            mano_derecha.interaccion(puedo_tomar_esto);
+            puedo_tomar_esto = null;
+        }
+
+    }
+
+    void accion_interaccion_izquierda(InputAction.CallbackContext _){
+        if(puedo_tomar_esto != null && puedo_tomar_esto.tipo == TipoInteraccion.recogible){
+            mano_izquierda.interaccion(puedo_tomar_esto);
+            puedo_tomar_esto = null;
         }
     }
 
-    void soltar_lo_que_tengo() { 
-        tengo_algo_en_mi_mano = false;
-
-        var objeto = puedo_tomar_esto.GetComponent<InteractuableComportamiento>();
-
-        // objeto.soltar();
-        objeto.arrojar(250.0f);
+    void accion_atacar_derecha(InputAction.CallbackContext _) {
+        Debug.Log("[SistemaInventario] Accion atacar derecha");
+        mano_derecha.usar();
     }
 
-    void atacar_con_arma(InputAction.CallbackContext _) {
-        Debug.Log("[SistemaInventario] mandnado a ejecutar un ataque");
-        
-        if (tengo_algo_en_mi_mano) {
-            var arma = puedo_tomar_esto.GetComponent<ArmaComponente>();
-
-            arma.dañar();
-        }
+    void accion_atacar_izquierda(InputAction.CallbackContext _) {
+        Debug.Log("[SistemaInventario] Accion atacar izquierda");
+        mano_izquierda.usar();
     }
 
     void OnTriggerEnter(Collider chocamos_con_algo){
         Debug.Log($"Estamos llegando con {chocamos_con_algo.gameObject.name}");
 
-        var que_tipo_de_interaccion_tiene = chocamos_con_algo.GetComponent<InteractuableComportamiento>();
+        var tipo_interactuable = chocamos_con_algo.GetComponent<InteractuableComportamiento>();
 
-        if (que_tipo_de_interaccion_tiene != null && !tengo_algo_en_mi_mano) {
-            puedo_tomar_esto = chocamos_con_algo.gameObject;
+        if (tipo_interactuable != null) {
+            puedo_tomar_esto = tipo_interactuable;
 
             var manejador_de_objeto_agarrable = chocamos_con_algo.GetComponent<AgarrableComponente>();
-            manejador_de_objeto_agarrable.marcar_como_observado();
+            manejador_de_objeto_agarrable?.marcar_como_observado();
         }
     }
 
 
     void OnTriggerExit(Collider abandonamos_algo){
         Debug.Log($"Estamos abandonando a {abandonamos_algo.gameObject.name}");
-        var que_tipo_de_interaccion_tiene = abandonamos_algo.GetComponent<InteractuableComportamiento>();
+        var tipo_interactuable = abandonamos_algo.GetComponent<InteractuableComportamiento>();
 
-        if (que_tipo_de_interaccion_tiene != null && !tengo_algo_en_mi_mano) {
-            if (abandonamos_algo.gameObject == puedo_tomar_esto) {
+        if (tipo_interactuable != null) {
+            if (tipo_interactuable == puedo_tomar_esto) {
                 puedo_tomar_esto = null;
             }
             
             var manejador_de_objeto_agarrable = abandonamos_algo.GetComponent<AgarrableComponente>();
-            manejador_de_objeto_agarrable.desamrcar_como_obervado();
+            manejador_de_objeto_agarrable?.desamrcar_como_obervado();
         }
     }
-
-
 
 }

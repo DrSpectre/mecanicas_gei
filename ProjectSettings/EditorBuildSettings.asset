@@ -8,7 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/escenas/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/escenas/escena_2.unity
+    guid: fbb342b0ea5534d1eaa7f05a969700f4
+  - enabled: 1
+    path: Assets/escenas/escena_3.unity
+    guid: 35ae6f527699d48a0a65f7cb83e36d80
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7b5b0b1acee624ea081f22bb0f047cda, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_UseUCBPForAssetBundles: 0

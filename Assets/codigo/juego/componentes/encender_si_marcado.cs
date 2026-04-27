@@ -10,6 +10,8 @@ public class EncenderSiMarcado : MonoBehaviour{
         GameObject padre = transform.parent.gameObject;
 
         padre.GetComponent<AgarrableComponente>().saber_si_soy_observado += activar;
+
+        objeto_a_activar.SetActive(false);
     }
 
     private void activar(bool encender) {

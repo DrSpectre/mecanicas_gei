@@ -14,4 +14,6 @@ public interface InteractuableComportamiento{
 
     void soltar();
     void arrojar(float fuerza);
+
+    void accion();
 }

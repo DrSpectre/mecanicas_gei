@@ -23,10 +23,14 @@ public class RecogibleComponente : MonoBehaviour, InteractuableComportamiento{
     }
 
     void Start(){
-        tipo = TipoInteraccion.recogible;
+        tipo = TipoInteraccion.obtenible;
 
         controlador = GameObject.FindAnyObjectByType<ControladorGeneral>();
 
         nombre = nombre_del_objeto; // Aui
+    }
+
+    public void accion(){
+        throw new System.NotImplementedException();
     }
 }

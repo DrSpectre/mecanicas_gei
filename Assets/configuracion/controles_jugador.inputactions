@@ -43,9 +43,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "atacar",
+                    "name": "atacar_izquierda",
                     "type": "Button",
-                    "id": "79be0577-1ce4-4f7c-b33e-4ccdd1ce5cac",
+                    "id": "4ee03cc1-80a1-4721-9c4e-d04d15c93fdb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "accion_izquierda",
+                    "type": "Button",
+                    "id": "306d3712-c454-4b6e-8bf0-842024199dc4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "atacar_derecha",
+                    "type": "Button",
+                    "id": "647c9996-2dc8-4933-a288-489c3b81ffcc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "accion_derecha",
+                    "type": "Button",
+                    "id": "c5383876-d657-4724-ab4e-2cb73d5cc074",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -198,34 +225,45 @@
                 },
                 {
                     "name": "",
-                    "id": "6f439d8b-749a-42af-9622-15a55145df09",
+                    "id": "f60b8229-ce3e-49c0-9b66-82801a65bdd2",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "atacar_izquierda",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90c1e91f-38b1-4961-a69a-8abb52a4a2c3",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "accion_izquierda",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40a1325a-60f8-4ff1-8e33-c3df5d44d172",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "atacar",
+                    "action": "atacar_derecha",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "60bfae2d-5e43-43ee-bf03-d062342219ec",
-                    "path": "<Mouse>/leftButton",
+                    "id": "89bf4b50-c950-4b83-a3f5-83a3b6cfc5d0",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "atacar",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "972a632c-0e32-474e-ab8a-b32d2432bbe8",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "atacar",
+                    "action": "accion_derecha",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
