@@ -66,13 +66,9 @@ public class SistemaInventario: MonoBehaviour{
 
         if (puedo_tomar_esto != null) {
             switch (puedo_tomar_esto.tipo) {
-                case TipoInteraccion.recogible:
-                    if (mano_derecha.GetComponent<UbicacionInventario>().ocupada) {
-                        // soltar_lo_que_tengo();
-                    }
-                    else{
-                        //colocar_en_mi_mano();
-                    }
+                case TipoInteraccion.obtenible:
+                    break;
+                case TipoInteraccion.presionable:
                     break;
             }
         }
